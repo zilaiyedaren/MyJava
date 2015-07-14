@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SHIRO-PERMISSION">
+
+    <resultMap id="permissionResult" type="org.wuheng.mybatis.web.slient.pojo.Permission">
+        <id property="id" column="id"/>
+        <result property="permission" column="permission"/>
+        <result property="available" column="available"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <resultMap id="rolePermissionResult" type="org.wuheng.mybatis.web.slient.pojo.status.RolePermissionStatus">
+        <result property="permission" column="permission"/>
+        <result property="available" column="available"/>
+        <result property="description" column="description"/>
+        <result property="checked" column="checked"/>
+    </resultMap>
+
+    <insert id="createPermission" parameterType="org.wuheng.mybatis.web.slient.pojo.Permission">
+          <selectKey resultType="long" order="AFTER" keyProperty="id">
+              select last_insert_id() as id
+          </selectKey>
+        INSERT INTO sys_permissions(permission,description,available) VALUES (#{permission},#{description},#{available})
+    </insert>
+
+    <!-- delete permission -->
+    <delete id="deletePermission" parameterType="long">
+		DELETE FROM sys_permissions WHERE id = #{permissionId}
+	</delete>
+
+    <!-- getPermissionCount -->
+    <select id="getPermissionCount" parameterType="org.wuheng.mybatis.web.formBean.PermissionForm" resultType="int">
+		SELECT COUNT(*) FROM sys_permissions
+	</select>
+
+    <!-- getPermissionList -->
+    <select id="getPermissionList" parameterType="org.wuheng.mybatis.web.formBean.PermissionForm" resultMap="permissionResult">
+		SELECT * FROM sys_permissions LIMIT #{offset},#{rows}
+	</select>
+
+    <!-- updatePermission -->
+    <update id="updatePermission" parameterType="org.wuheng.mybatis.web.slient.pojo.Permission">
+		UPDATE sys_permissions SET permission = #{permission},available = #{available},description = #{description} WHERE id = #{id}
+	</update>
+
+    <!-- getAllPermissions -->
+    <select id="getAllPermissions" parameterType="long" resultMap="rolePermissionResult">
+		SELECT *,rp.permission_id IS NOT NULL AS checked FROM sys_permissions p LEFT JOIN sys_roles_permissions rp ON p.id = rp.permission_id AND role_id = #{roleId}
+	</select>
+</mapper>

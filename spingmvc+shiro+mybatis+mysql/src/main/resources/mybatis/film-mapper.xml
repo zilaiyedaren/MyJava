@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SHIRO-FILM">
+    <!--film Result -->
+    <resultMap id="filmResult" type="org.wuheng.mybatis.web.slient.pojo.Film">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="duration" column="duration"/>
+        <result property="coverUrl" column="cover_url"/>
+        <result property="introduction" column="introduction"/>
+        <result property="actor" column="actor"/>
+        <result property="director" column="director"/>
+        <result property="star" column="star"/>
+        <result property="country" column="country"/>
+        <result property="screen" column="screen"/>
+        <result property="type" column="type"/>
+        <result property="countryId" column="country_id"/>
+        <result property="screenId" column="screen_id"/>
+        <result property="publiced" column="publiced"/>
+    </resultMap>
+
+
+    <!-- getFilmCount -->
+    <select id="getFilmCount" parameterType="org.wuheng.mybatis.web.formBean.FilmForm" resultType="int">
+		SELECT COUNT(*) FROM film
+	</select>
+
+    <!-- getFilmList -->
+    <select id="getFilmList" parameterType="org.wuheng.mybatis.web.formBean.FilmForm" resultMap="filmResult">
+		SELECT * FROM film LIMIT #{offset},#{rows}
+	</select>
+
+    <!--createFilm-->
+    <insert id="createFilm" parameterType="org.wuheng.mybatis.web.slient.pojo.Film">
+		INSERT INTO film(name,duration,cover_url,introduction,director,actor,star,country,screen,type,country_id,screen_id,publiced)
+		VALUES (#{name},#{duration},#{coverUrl},#{introduction},#{director},#{actor},#{star},#{country},#{screen},#{type},#{countryId},#{screenId},#{publiced});
+	</insert>
+
+    <!-- updateFilm -->
+    <update id="updateFilm" parameterType="org.wuheng.mybatis.web.slient.pojo.Film">
+		UPDATE film SET
+		name =
+		#{name},duration = #{duration},cover_url = #{coverUrl},introduction =
+		#{introduction},director=#{director},actor=#{actor},star=#{star},country=#{country},
+		screen=#{screen},type=#{type},country_id=#{countryId},screen_id=#{screenId},publiced=#{publiced}
+		WHERE id = #{id}
+	</update>
+
+    <!-- deleteFilm -->
+    <delete id="deleteFilm" parameterType="long">
+		DELETE FROM film
+		WHERE id
+		= #{value}
+	</delete>
+</mapper>

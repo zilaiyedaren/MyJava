@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-autowire="byName">
+
+    <!--<context:component-scan base-package="org*"/>-->
+
+    <bean id="dataSourceMaster" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl">
+            <value>${slient.datasource.jdbcUrl}</value>
+        </property>
+        <property name="username" value="${slient.datasource.username}"/>
+        <property name="password" value="${slient.datasource.password}"/>
+        <property name="idleConnectionTestPeriodInMinutes" value="5"/>
+        <property name="idleMaxAgeInMinutes" value="30"/>
+        <property name="maxConnectionsPerPartition" value="30"/>
+        <property name="minConnectionsPerPartition" value="5"/>
+        <property name="partitionCount" value="2"/>
+        <property name="acquireIncrement" value="5"/>
+        <property name="statementsCacheSize" value="150"/>
+        <property name="releaseHelperThreads" value="8"/>
+        <property name="connectionTestStatement" value="select 1 from dual"/>
+    </bean>
+
+    <bean id="dataSourceSlave" class="com.jolbox.bonecp.BoneCPDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl">
+            <value>${slient.datasource.jdbcUrl}</value>
+        </property>
+        <property name="username" value="${slient.datasource.username}" />
+        <property name="password" value="${slient.datasource.password}" />
+        <property name="idleConnectionTestPeriodInMinutes" value="5" />
+        <property name="idleMaxAgeInMinutes" value="30" />
+        <property name="maxConnectionsPerPartition" value="30" />
+        <property name="minConnectionsPerPartition" value="5" />
+        <property name="partitionCount" value="2" />
+        <property name="acquireIncrement" value="5" />
+        <property name="statementsCacheSize" value="150" />
+        <property name="releaseHelperThreads" value="8" />
+        <property name="connectionTestStatement" value="select 1 from dual" />
+    </bean>
+
+    <!--myBatis配置-->
+    <bean id="sqlSessionFactoryBean"
+          class="org.summercool.mybatis.spring.support.SqlSessionFactoryBean">
+        <property name="mainDataSource" ref="dataSourceMaster" />
+        <property name="shardDataSourceList">
+            <util:list>
+                <ref bean="dataSourceSlave" />
+            </util:list>
+        </property>
+        <property name="mapperLocations">
+            <array>
+                <value>classpath:mybatis/user-mapper.xml</value>
+                <value>classpath:mybatis/role-mapper.xml</value>
+                <value>classpath:mybatis/permission-mapper.xml</value>
+                <value>classpath:mybatis/film-mapper.xml</value>
+                <value>classpath:mybatis/tag-mapper.xml</value>
+                <value>classpath:mybatis/novel-mapper.xml</value>
+                <value>classpath:mybatis/apk-mapper.xml</value>
+                <value>classpath:mybatis/music-mapper.xml</value>
+            </array>
+        </property>
+        <property name="shardStrategy">
+            <map>
+                <entry key="No-Shared">
+                    <value>org.summercool.mybatis.strategy.NoShardStrategy</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!--配置DAO以及DAO的实现,实现sqlSessionFactor管理DAO-->
+    <!--<bean id="userDao" class="org.wuheng.mybatis.web.dao.impl.UserDaoImpl">-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="roleDao" class="org.wuheng.mybatis.web.dao.impl.RoleDaoImpl">-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>-->
+    <!--</bean>-->
+    <!--<bean id="permissionDao" class="org.wuheng.mybatis.web.dao.impl.PermissionDaoImpl">-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>-->
+    <!--</bean>-->
+    <!--<bean id="tagDao" class="org.wuheng.mybatis.web.dao.impl.TagDaoImpl">-->
+        <!--<property name="sqlSessionFactory"  ref="sqlSessionFactoryBean"/>-->
+    <!--</bean>-->
+    <!--<bean id="filmDao" class="org.wuheng.mybatis.web.dao.entertainment.impl.FilmDaoImpl">-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="novelDao" class="org.wuheng.mybatis.web.dao.entertainment.impl.NovelDaoImpl">-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="apkDao" class="org.wuheng.mybatis.web.dao.entertainment.impl.ApkDaoImpl">-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="musicDao" class="org.wuheng.mybatis.web.dao.entertainment.impl.MusicDaoImpl">-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>-->
+    <!--</bean>-->
+
+</beans>

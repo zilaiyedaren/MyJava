@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SHIRO-ROLE">
+     <resultMap id="roleResult" type="org.wuheng.mybatis.web.slient.pojo.Role">
+         <id property="id" column="id"/>
+         <result property="role" column="role"/>
+         <result property="available" column="available"/>
+         <result property="description" column="description"/>
+     </resultMap>
+
+    <!--表名，字段名-->
+    <resultMap id="userRoleResult" type="org.wuheng.mybatis.web.slient.pojo.status.UserRoleStatus">
+        <id  property="id" column="id"/>
+        <result property="role" column="role"/>
+        <result property="available" column="available"/>
+        <result property="description" column="description"/>
+        <result property="checked" column="checked"/>
+    </resultMap>
+
+    <!--id对应Dao中的方法名，parameterType对应方法中的参数类型,resultMap,resultType对应返回类型-->
+    <insert id="createRole" parameterType="org.wuheng.mybatis.web.slient.pojo.Role">
+        INSERT INTO sys_roles(role,description,available) VALUES (#{role},#{description},#{available});
+    </insert>
+    <delete id="deleteUserRole" parameterType="long">
+        DELETE FROM sys_user_roles WHERE role_id=#{roleId}
+    </delete>
+
+    <delete id="deleteRole" parameterType="long">
+		DELETE FROM sys_roles WHERE id = #{roleId}
+	</delete>
+    <!-- correlationPermissions -->
+    <insert id="correlationPermissions" parameterType="map">
+		INSERT INTO sys_roles_permissions(role_id, permission_id) values(#{roleId},#{permissionId})
+	</insert>
+
+    <!-- getRoleCount -->
+    <select id="getRoleCount" parameterType="org.wuheng.mybatis.web.formBean.RoleForm" resultType="int">
+		SELECT COUNT(*) FROM sys_roles
+	</select>
+
+    <!-- getRoleList -->
+    <select id="getRoleList" parameterType="org.wuheng.mybatis.web.formBean.RoleForm" resultMap="roleResult">
+		SELECT * FROM sys_roles LIMIT #{offset},#{rows}
+	</select>
+
+    <!-- updateRole -->
+    <update id="updateRole" parameterType="org.wuheng.mybatis.web.slient.pojo.Role">
+		UPDATE sys_roles SET role = #{role},description = #{description},available = #{available} WHERE id = #{id}
+	</update>
+
+    <!-- getAllRoles -->
+    <select id="getAllRoles" resultMap="userRoleResult">
+		SELECT *,ur.user_id IS NOT NULL AS checked FROM sys_roles r left JOIN sys_users_roles ur ON r.id = ur.role_id AND ur.user_id = #{userId}
+	</select>
+
+    <!-- deleteRolePermission -->
+    <delete id="deleteRolePermission" parameterType="long">
+		DELETE FROM sys_roles_permissions WHERE role_id = #{roleId}
+	</delete>
+
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SHIRO-MUSIC">
+      <resultMap id="musicResult" type="org.wuheng.mybatis.web.slient.pojo.Music">
+          <id property="id" column="id"/>
+          <result property="name" column="name"/>
+          <result property="music_url" column="music_url"/>
+          <result property="created" column="created"/>
+          <result property="publiced" column="publiced"/>
+          <result property="singer_id" column="singer_id"/>
+      </resultMap>
+
+    <select id="getMusicCount" parameterType="org.wuheng.mybatis.web.formBean.MusicForm" resultType="int">
+		SELECT COUNT(*) FROM music
+	</select>
+
+    <select id="getMusicList" parameterType="org.wuheng.mybatis.web.formBean.MusicForm" resultMap="musicResult">
+		SELECT * FROM music LIMIT #{offset},#{rows}
+	</select>
+
+    <insert id="createMusic" parameterType="org.wuheng.mybatis.web.slient.pojo.Music">
+		INSERT INTO music (name,music_url,created,publiced,singer_id)
+		VALUES (#{name},#{music_url},#{created},#{publiced},#{singer_id});
+	</insert>
+
+    <update id="updateMusic" parameterType="org.wuheng.mybatis.web.slient.pojo.Music">
+		UPDATE music SET
+		name =
+		#{name},music_url = #{music_url},created =
+		#{created},publiced=#{publiced},singer_id=#{singer_id}
+		WHERE id = #{id}
+	</update>
+
+    <delete id="deleteMusic" parameterType="long">
+		DELETE FROM music
+		WHERE id
+		= #{value}
+	</delete>
+</mapper>

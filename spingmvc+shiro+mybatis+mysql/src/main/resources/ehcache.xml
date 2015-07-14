@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false" name="shirocache">
+
+     <!--本地缓存-->
+    <diskStore path="java.io.tmpdir"/>
+    <!--<diskStore path="java.io.tmpdir/shiro-ehcache"/>-->
+
+    <!-- 登录记录缓存 锁定10分钟 -->
+    <!--密码缓存-->
+    <cache name="passwordRetryCache"
+    	   maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+        <!--拥有授权认证缓存-->
+    <cache name="authorizationCache"
+    	   maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+        <!--登录权限认证缓存-->
+    <cache name="authenticationCache"
+    	   maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+    <!--shiro-session缓存-->
+    <cache name="shiro-activeSessionCache"
+     	   maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+</ehcache>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SHIRO-APK">
+    <resultMap  type="org.wuheng.mybatis.web.slient.pojo.Apk" id="apkResult">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="pack_name" column="pack_name"/>
+        <result property="introduction" column="introduction"/>
+        <result property="icon_url" column="icon_url"/>
+        <result property="version_code" column="version_code"/>
+        <result property="type" column="type"/>
+        <result property="created" column="created"/>
+        <result property="publiced" column="publiced"/>
+    </resultMap>
+
+    <select id="getApkCount" parameterType="org.wuheng.mybatis.web.formBean.ApkFrom" resultType="int">
+		SELECT COUNT(*) FROM apk
+	</select>
+
+    <select id="getApkList" parameterType="org.wuheng.mybatis.web.formBean.ApkFrom" resultMap="apkResult">
+		SELECT * FROM apk LIMIT #{offset},#{rows}
+	</select>
+
+    <insert id="createApk" parameterType="org.wuheng.mybatis.web.slient.pojo.Apk">
+		INSERT INTO apk(name,pack_name,introduction,icon_url,version_code,type,created,publiced)
+		VALUES (#{name},#{pack_name},#{introduction},#{icon_url},#{version_code},#{type},#{created},#{publiced});
+	</insert>
+
+    <update id="updateApk" parameterType="org.wuheng.mybatis.web.slient.pojo.Apk">
+		UPDATE apk SET
+		name =#{name},icon_url = #{icon_url},introduction =#{introduction},
+		version_code=#{version_code},type=#{type},created=#{created},publiced=#{publiced}
+		WHERE id = #{id}
+	</update>
+
+    <delete id="deleteApk" parameterType="long">
+		DELETE FROM apk
+		WHERE id
+		= #{value}
+	</delete>
+</mapper>
