@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <!-- spring-security3.1不在支持filters="none"  不过滤这些静态资源资源-->
+    <security:http  pattern="/img/**" security="none" />
+    <security:http  pattern="/css/**" security="none" />
+    <security:http  pattern="/js/**" security="none" />
+
+    <!--  Spring-Security 的配置 -->
+    <!--IS_AUTHENTICATED_ANONYMOUSLY 允许匿名用户进入-->
+    <!--IS_AUTHENTICATED_FULLY 允许登录用户进入-->
+    <!--IS_AUTHENTICATED_REMEMBERED 允许登录用户和rememberMe用户进入-->
+    <security:http auto-config="true" use-expressions="false" access-denied-page="/user/login_failure.html">
+        <!--允许所有人访问-->
+        <security:intercept-url pattern="/index.html" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <!--允许ROLE_ADMIN权限访问-->
+        <security:intercept-url pattern="/user/list.html" access="ROLE_ADMIN" />
+        <!--允许ROLE_ADMIN权限访问-->
+        <security:intercept-url pattern="/user/**" access="ROLE_ADMIN" />
+        <!--允许ROLE_USER权限访问-->
+        <security:intercept-url pattern="/success.html" access="ROLE_USER,ROLE_ADMIN" />
+        <!--允许IS_AUTHENTICATED_ANONYMOUSLY匿名访问-->
+        <security:intercept-url pattern="/anonymously.html" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+
+        <!-- 设置登录过滤器 -->
+        <security:custom-filter before="FORM_LOGIN_FILTER" ref="validateCodeAuthenticationFilter"/>
+
+
+        <!--  登录表单设置, login-page:默认指定的登录页面. authentication-failure-url:出错后跳转页面. default-target-url:成功登陆后跳转页面 -->
+        <security:form-login login-page="/index.html" authentication-failure-url="/user/login_failure.html" default-target-url="/user/list.html" />
+        <!--invalidate-session：指定在退出系统时是否要销毁Session。logout-success-url：退出系统后转向的URL。logout-url：指定了用于响应退出系统请求的URL。其默认值为：/j_spring_security_logout。-->
+        <security:logout invalidate-session="true" logout-success-url="/index.html" logout-url="/j_spring_security_logout" />
+        <!--
+            max-sessions:允许用户帐号登录的次数。范例限制用户只能登录一次。exception-if-maximum-exceeded:
+            默认为false，此值表示：用户第二次登录时，前一次的登录信息都被清空。当exception-if-maximum-exceeded="true"时系统会拒绝第二次登录。
+        -->
+        <!--如果复写了 userDetailsService那么添加remember me 需要自己写filter-->
+        <security:remember-me user-service-ref="customUserDetailsService"/>    <!--默认记住2周,默认存储在cookie中，也可以连接到数据库-->
+
+        <security:session-management invalid-session-url="/index.html"> <!--超时-->
+            <!--<security:concurrency-control error-if-maximum-exceeded="true" max-sessions="1" />-->  <!--控制一个帐号只允许一次登录-->
+            <security:concurrency-control  max-sessions="1"  />
+        </security:session-management>
+    </security:http>
+
+
+    <!-- 指定一个自定义的authentication-manager :customUserDetailsService -->
+    <security:authentication-manager erase-credentials="false" alias="authenticationManagerLogin">
+        <security:authentication-provider user-service-ref="customUserDetailsService">
+            <security:password-encoder hash="md5" ref="passwordEncoder">    <!-- 对密码进行MD5编码 -->
+                <!-- 盐，根据用户username作为盐 -->
+                <security:salt-source user-property="username"/>
+            </security:password-encoder>
+            <!--<security:user-service>-->
+                <!--<security:user name="admin"-->
+                               <!--password="2l232f297a57a5a748394a0e4a80lfc3"-->
+                               <!--authorities="ROLE_USER" />-->
+                <!--<security:user name="user" password="user"-->
+                               <!--authorities="ROLE_USER" />-->
+            <!--</security:user-service>-->
+            <!--<security:jdbc-user-service data-source-ref="dataSource" />-->
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
+
+    <!--通过 customUserDetailsService,Spring会控制用户的访问级别.也可以理解成:以后我们和数据库操作就是通过customUserDetailsService来进行关联.-->
+    <bean id="customUserDetailsService" class="org.myself.web.spring.security.CustomUserDetailsService" />
+
+    <!--自定义登陆错误提示，可以取出mymessages.properties的国际化消息-->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:src/resource/mymessages"/>
+    </bean>
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />
+
+   <!--注册自动登录-->
+    <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+          <property name="userDetailsService" ref="customUserDetailsService"/>
+    </bean>
+    <bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+        <property name="providers">
+            <list>
+                <ref local="daoAuthenticationProvider" />
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- 登录验证过滤器 -->
+    <!--<bean id="validateCodeAuthenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">-->
+    <bean id="validateCodeAuthenticationFilter" class="org.myself.web.spring.security.ValidateCodeUsernamePasswordAuthenticationFilter">
+        <property name="authenticationSuccessHandler" ref="loginLogAuthenticationSuccessHandler"/>
+        <property name="authenticationFailureHandler" ref="simpleUrlAuthenticationFailureHandler"/>
+        <property name="authenticationManager" ref="authenticationManagerLogin"/>
+    </bean>
+     <!--登录成功-->
+    <bean id="loginLogAuthenticationSuccessHandler"
+                class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <property name="defaultTargetUrl" value="/user/list.html"/>
+    </bean>
+    <!-- 登录失败 -->
+    <bean id="simpleUrlAuthenticationFailureHandler"
+                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+           <property name="defaultFailureUrl" value="/index.html?error=true"/>
+    </bean>
+
+</beans>

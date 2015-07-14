@@ -1,0 +1,17 @@
+
+DROP TABLE IF EXISTS t_users;
+CREATE TABLE `t_users` (
+  `id` int(11) NOT NULL auto_increment,
+  `username` varchar(30) default NULL,
+  `email` varchar(30) default NULL,
+  `password` varchar(200) default NULL,
+  `expresspassword` varchar(200) default NULL,
+  `role` varchar(30) default NULL,
+  `createtime` datetime default NULL,
+  `logintime` datetime default NULL,
+  `count` int(11) default '0',
+  `status` BOOL  default true ,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ;
+
+INSERT INTO t_users VALUES (1,'admin','yunduanyueying@163.com','ceb4f32325eda6142bd65215f4c0f371','admin','1',now(),null,0,true);
