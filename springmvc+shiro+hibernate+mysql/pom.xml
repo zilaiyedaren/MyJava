@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ketayao</groupId>
+	<artifactId>security</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>security</name>
+
+	<properties>
+        <context-path>wuheng</context-path>
+		<!-- 主要依赖库的版本定义 -->
+		<springside.version>4.0.0.GA</springside.version>
+		<spring.version>3.1.0.RELEASE</spring.version>
+		<hibernate.version>4.1.7.Final</hibernate.version>
+		<ehcache.version>2.5.2</ehcache.version>
+		<spring-data-jpa.version>1.2.0.RC1</spring-data-jpa.version>
+		<commons-dbcp.version>1.4</commons-dbcp.version>
+		<shiro.version>1.2.1</shiro.version>
+		<slf4j.version>1.7.1</slf4j.version>
+		<log4j.version>1.2.17</log4j.version>
+		<commons-lang3.version>3.1</commons-lang3.version>
+		<guava.version>13.0.1</guava.version>
+		<junit.version>4.10</junit.version>
+		<jetty.version>7.6.7.v20120910</jetty.version>
+        <jdk-version>1.6</jdk-version>
+        <start-port>8000</start-port>
+        <stop-port>9088</stop-port>
+        <jetty-version>7.4.4.v20110707</jetty-version>
+        <compile-encoding>utf-8</compile-encoding>
+		<commons-fileupload.version>1.2.2</commons-fileupload.version>
+
+		<!-- Plugin的属性定义 -->
+		<!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+		<!--<jdk.version>1.6</jdk.version>-->
+
+		<!-- 项目属性 -->
+		<!-- 
+		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
+		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
+		<jdbc.driver.version>${h2.version}</jdbc.driver.version>
+		-->
+
+    <jdbc.driver.groupId>mysql</jdbc.driver.groupId>
+    <jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
+    <jdbc.driver.version>5.1.9</jdbc.driver.version>
+			
+	</properties>
+	
+	<repositories>
+		<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址.
+		<repository>
+			<id>nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://localhost:8081/nexus/content/groups/public</url> 
+		</repository>
+		-->
+		<repository>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>http://repo.maven.apache.org/maven2</url>	
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		
+		<repository>
+			<id>repo.springsource.org</id>
+			<name>repo.springsource.org-releases</name>
+			<url>http://repo.springsource.org/libs-milestone-local</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+	    </repository>
+	</repositories>
+
+	<!-- 设定插件仓库 如有Nexus私服, 取消注释并指向正确的服务器地址. 
+	<pluginRepositories> 
+		<pluginRepository> 
+			<id>nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://localhost:8081/nexus/content/groups/public</url> 
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	-->
+
+	<!-- 依赖项定义 -->
+	<dependencies>
+		<!-- SPRINGSIDE -->
+		<dependency>
+			<groupId>org.springside</groupId>
+			<artifactId>springside-core</artifactId>
+			<version>${springside.version}</version>
+		</dependency>	
+
+		<!-- AOP begin -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.7.0</version>
+		</dependency>		
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>3.3.1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- AOP end -->
+
+		<!-- PERSISTENCE begin -->
+		<!-- hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>${ehcache.version}</version>
+		</dependency> 		
+
+		<!-- spring data access -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring-data-jpa.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit-dep</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- dbcp connection pool -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>${commons-dbcp.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- jdbc driver -->
+		<dependency>
+			<groupId>${jdbc.driver.groupId}</groupId>
+			<artifactId>${jdbc.driver.artifactId}</artifactId>
+			<version>${jdbc.driver.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- PERSISTENCE end -->
+
+		<!-- WEB begin -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- WEB end -->
+		
+		<!-- fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+		</dependency>
+		
+		<!-- SECURITY begin -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<!-- SECURITY end -->
+		
+		<!-- LOGGING begin -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- common-logging 实际调用slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- java.util.logging 实际调用slf4j -->
+		<dependency>
+        	<groupId>org.slf4j</groupId>
+        	<artifactId>jul-to-slf4j</artifactId>
+        	<version>${slf4j.version}</version>
+        	<scope>runtime</scope>
+      	</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.lazyluke</groupId>
+			<artifactId>log4jdbc-remix</artifactId>
+			<version>0.2.7</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- LOGGING end -->
+
+		<!-- GENERAL UTILS begin -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		<!-- GENERAL UTILS end -->
+
+		<!--&lt;!&ndash; TEST begin &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springside</groupId>-->
+			<!--<artifactId>springside-test</artifactId>-->
+			<!--<version>${springside.version}</version>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--&lt;!&ndash; jetty &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.eclipse.jetty.aggregate</groupId>-->
+			<!--<artifactId>jetty-webapp</artifactId>-->
+			<!--<version>${jetty.version}</version>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.eclipse.jetty</groupId>-->
+			<!--<artifactId>jetty-jsp</artifactId>-->
+			<!--<version>${jetty.version}</version>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
+		<!-- TEST end -->
+	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+			<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>				
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <source>${jdk-version}</source>
+                    <target>${jdk-version}</target>
+                    <encoding>${compile-encoding}</encoding>
+                </configuration>
+
+            </plugin>
+
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty-version}</version>
+                <configuration>
+                    <webAppConfig>
+                        <contextPath>/${context-path}</contextPath>   <!--确保webapp路径正确 /${context-path}-->
+                    </webAppConfig>
+
+                    <connectors>
+                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>${start-port}</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                    <stopKey>foo</stopKey>
+                    <stopPort>${stop-port}</stopPort>
+                </configuration>
+            </plugin>
+
+        </plugins>
+		<!--<plugins>-->
+			<!--&lt;!&ndash; compiler插件, 设定JDK版本 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-compiler-plugin</artifactId>-->
+				<!--<version>2.5.1</version>-->
+				<!--<configuration>-->
+					<!--<source>${jdk.version}</source>-->
+					<!--<target>${jdk.version}</target>-->
+					<!--<showWarnings>true</showWarnings>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+
+			<!--&lt;!&ndash; war打包插件, 设定war包名称不带版本号 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-war-plugin</artifactId>-->
+				<!--<version>2.3</version>-->
+				<!--<configuration>-->
+					<!--<warName>${project.artifactId}</warName>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+
+			<!--&lt;!&ndash; test插件, 仅测试名称为*Test的类,使用支持分组测试的surefire-junit47 driver &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-surefire-plugin</artifactId>-->
+				<!--<version>2.12.4</version>-->
+				<!--<configuration>-->
+					<!--<includes>-->
+						<!--<include>**/*Test.java</include>-->
+					<!--</includes>-->
+					<!--<argLine>-Xmx256M</argLine>-->
+				<!--</configuration>-->
+				<!--<dependencies>-->
+					<!--<dependency>-->
+						<!--<groupId>org.apache.maven.surefire</groupId>-->
+						<!--<artifactId>surefire-junit47</artifactId>-->
+						<!--<version>2.12.4</version>-->
+					<!--</dependency>-->
+				<!--</dependencies>-->
+			<!--</plugin>-->
+
+			<!--&lt;!&ndash; 增加functional test的Source目录 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.codehaus.mojo</groupId>-->
+				<!--<artifactId>build-helper-maven-plugin</artifactId>-->
+				<!--<version>1.7</version>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>add-functional-source</id>-->
+						<!--<phase>generate-sources</phase>-->
+						<!--<goals>-->
+							<!--<goal>add-test-source</goal>-->
+						<!--</goals>-->
+						<!--<configuration>-->
+							<!--<sources>-->
+								<!--<source>src/test/functional</source>-->
+							<!--</sources>-->
+						<!--</configuration>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
+
+			<!--&lt;!&ndash; cobertura插件, 设置不需要计算覆盖率的类 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.codehaus.mojo</groupId>-->
+				<!--<artifactId>cobertura-maven-plugin</artifactId>-->
+				<!--<version>2.5.1</version>-->
+				<!--<configuration>-->
+					<!--<instrumentation>-->
+						<!--<excludes>-->
+							<!--<exclude>**/entity/**/*.class</exclude>-->
+							<!--<exclude>**/*Controller.class</exclude>-->
+						<!--</excludes>-->
+					<!--</instrumentation>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+
+			<!--&lt;!&ndash; eclipse插件, 设定wtp版本 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-eclipse-plugin</artifactId>-->
+				<!--<version>2.9</version>-->
+				<!--<configuration>-->
+					<!--<downloadSources>true</downloadSources>-->
+					<!--<downloadJavadocs>false</downloadJavadocs>-->
+					<!--<wtpversion>2.0</wtpversion>-->
+					<!--&lt;!&ndash; 增加设置项目encoding的文件 &ndash;&gt;-->
+					<!--<additionalConfig>-->
+						<!--<file>-->
+							<!--<name>.settings/org.eclipse.core.resources.prefs</name>-->
+							<!--<content>eclipse.preferences.version=1${line.separator}encoding/&lt;project&gt;=${project.build.sourceEncoding}${line.separator}</content>-->
+						<!--</file>-->
+					<!--</additionalConfig>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+			<!---->
+			<!--&lt;!&ndash; enforcer插件, 设定环境与依赖的规则 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-enforcer-plugin</artifactId>-->
+				<!--<version>1.1.1</version>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>enforce-banned-dependencies</id>-->
+						<!--<goals>-->
+							<!--<goal>enforce</goal>-->
+						<!--</goals>-->
+						<!--<configuration>-->
+							<!--<rules>-->
+								<!--<requireMavenVersion>-->
+                  					<!--<version>3.0.3</version>-->
+                				<!--</requireMavenVersion>-->
+                				<!--<requireJavaVersion>-->
+                  					<!--<version>1.6</version>-->
+                				<!--</requireJavaVersion>-->
+								<!--<bannedDependencies>-->
+									<!--<searchTransitive>true</searchTransitive>-->
+									<!--&lt;!&ndash; 避免引入过期的jar包 &ndash;&gt;-->
+									<!--<excludes>-->
+										<!--<exclude>commons-logging</exclude>-->
+										<!--<exclude>aspectj:aspectj*</exclude>-->
+										<!--<exclude>org.springframework:2.*</exclude>-->
+										<!--<exclude>org.springframework:3.0.*</exclude>-->
+									<!--</excludes>-->
+								<!--</bannedDependencies>-->
+							<!--</rules>-->
+							<!--<fail>true</fail>-->
+						<!--</configuration>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
+			<!---->
+			<!--&lt;!&ndash; jetty插件, 设定context path与spring profile &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.mortbay.jetty</groupId>-->
+				<!--<artifactId>jetty-maven-plugin</artifactId>-->
+				<!--<version>${jetty.version}</version>-->
+				<!--<configuration>-->
+					<!--<systemProperties>-->
+						<!--<systemProperty>-->
+							<!--<name>spring.profiles.active</name>-->
+							<!--<value>development</value>-->
+						<!--</systemProperty>-->
+					<!--</systemProperties>-->
+					<!--<useTestClasspath>true</useTestClasspath>-->
+				<!---->
+					<!--<webAppConfig>-->
+						<!--<contextPath>/${project.artifactId}</contextPath>-->
+					<!--</webAppConfig>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+
+			<!--&lt;!&ndash; resource插件 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-resources-plugin</artifactId>-->
+				<!--<version>2.6</version>-->
+			<!--</plugin>-->
+			<!---->
+			<!--&lt;!&ndash; install插件 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-install-plugin</artifactId>-->
+				<!--<version>2.4</version>-->
+			<!--</plugin>-->
+
+			<!--&lt;!&ndash; clean插件 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-clean-plugin</artifactId>-->
+				<!--<version>2.5</version>-->
+			<!--</plugin>-->
+			<!---->
+			<!--&lt;!&ndash; ant插件 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-antrun-plugin</artifactId>-->
+				<!--<version>1.7</version>-->
+			<!--</plugin>-->
+			<!---->
+			<!--&lt;!&ndash; dependency插件 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-dependency-plugin</artifactId>-->
+				<!--<version>2.5.1</version>-->
+			<!--</plugin>-->
+		<!--</plugins>-->
+	</build>
+
+	<!--<profiles>-->
+		<!--&lt;!&ndash; 执行functional test &ndash;&gt;-->
+		<!--<profile>-->
+			<!--<id>functional-test</id>-->
+			<!--<build>-->
+				<!--<plugins>-->
+					<!--<plugin>-->
+						<!--<groupId>org.apache.maven.plugins</groupId>-->
+						<!--<artifactId>maven-surefire-plugin</artifactId>-->
+						<!--<configuration>-->
+							<!--<argLine>-Xmx256M -XX:MaxPermSize=128m</argLine>-->
+							<!--<includes>-->
+								<!--<include>**/*FT.java</include>-->
+							<!--</includes>-->
+							<!--&lt;!&ndash; 支持taglib tld文件查找的必要设置 &ndash;&gt;-->
+							<!--<useSystemClassLoader>false</useSystemClassLoader>-->
+							<!--&lt;!&ndash; 将mvn命令行传入的selenium driver参数传入surefire的JVM &ndash;&gt;-->
+							<!--&lt;!&ndash;<systemPropertyVariables>&ndash;&gt;-->
+								<!--&lt;!&ndash;<selenium.driver>${selenium.driver}</selenium.driver>&ndash;&gt;-->
+							<!--&lt;!&ndash;</systemPropertyVariables>&ndash;&gt;-->
+						<!--</configuration>-->
+					<!--</plugin>-->
+				<!--</plugins>-->
+			<!--</build>-->
+		<!--</profile>-->
+		<!---->
+		<!--&lt;!&ndash; 执行@Category(Smoke.class)的TestCase &ndash;&gt;-->
+		<!--<profile>-->
+			<!--<id>run-smoke</id>-->
+			<!--<build>-->
+				<!--<plugins>-->
+					<!--<plugin>-->
+						<!--<groupId>org.apache.maven.plugins</groupId>-->
+						<!--<artifactId>maven-surefire-plugin</artifactId>-->
+						<!--<configuration>-->
+							<!--&lt;!&ndash;<includedGroups>org.springside.modules.test.category.Smoke</includedGroups>&ndash;&gt;-->
+						<!--</configuration>-->
+					<!--</plugin>				-->
+				<!--</plugins>-->
+			<!--</build>-->
+		<!--</profile>-->
+		<!---->
+		<!--&lt;!&ndash; 忽略所有@Category(UnStable.class)的TestCase &ndash;&gt;-->
+		<!--<profile>-->
+			<!--<id>skip-unstable</id>-->
+			<!--<build>-->
+				<!--<plugins>-->
+					<!--<plugin>-->
+						<!--<groupId>org.apache.maven.plugins</groupId>-->
+						<!--<artifactId>maven-surefire-plugin</artifactId>-->
+						<!--<configuration>-->
+							<!--<excludedGroups>org.springside.modules.test.category.UnStable</excludedGroups>-->
+						<!--</configuration>-->
+					<!--</plugin>				-->
+				<!--</plugins>-->
+			<!--</build>-->
+		<!--</profile>-->
+		
+		<!--&lt;!&ndash; 刷新开发环境数据库 &ndash;&gt;-->
+		<!--<profile>-->
+			<!--<id>refresh-db</id>-->
+			<!--<build>-->
+
+				<!--<plugins>-->
+					<!--<plugin>-->
+						<!--<groupId>org.apache.maven.plugins</groupId>-->
+						<!--&lt;!&ndash;<artifactId>maven-antrun-plugin</artifactId>&ndash;&gt;-->
+						<!--<configuration>-->
+							<!--<target>-->
+								<!--<property file="src/main/resources/application.development.properties" />-->
+								<!--<property file="src/main/resources/application.properties" />-->
+								<!--<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}" onerror="continue">-->
+									<!--<classpath refid="maven.test.classpath" />-->
+									<!--<transaction src="src/main/resources/sql/h2/schema.sql" />-->
+									<!--<transaction src="src/test/resources/data/import-data.sql" />-->
+								<!--</sql>-->
+							<!--</target>-->
+						<!--</configuration>-->
+					<!--</plugin>-->
+				<!--</plugins>-->
+			<!--</build>-->
+		<!--</profile>-->
+	<!--</profiles>-->
+</project>
