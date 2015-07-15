@@ -16,5 +16,6 @@ public class Test {
         BeanFactory factory = new ClassPathXmlApplicationContext("applicationContext.xml");
         IUsersDaoImpl iUsersDao=(IUsersDaoImpl)factory.getBean("userDao");
         TUsers tUsers=iUsersDao.findByUsername("wh");
+
     }
 }
