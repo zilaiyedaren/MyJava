@@ -245,7 +245,17 @@
             <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.7.3</version>
+        </dependency>
     </dependencies>
+
+
+
 
 
     <!-- 远程Maven仓库设置为开源中国 -->
