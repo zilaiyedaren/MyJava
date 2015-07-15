@@ -1,0 +1,126 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!--suppress ALL -->
+<struts>
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.convention.result.path" value="/WEB-INF/content"/>
+    <!--<constant name="struts.convention.action.packages" value="com.derbysoft.mhotel.web.action"/>-->
+    <constant name="struts.convention.action.packages" value="org.myself.mobile.web.action"/>
+    <constant name="struts.convention.default.parent.package" value="default"/>
+    <constant name="struts.custom.i18n.resources" value="globleMessage"/>
+    <constant name="struts.action.extension" value="dhtml,,"/>
+    <constant name="struts.action.excludePattern" value="/,/static/.*"/>
+    <constant name="struts.ui.theme" value="simple"/>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.xwork.chaining.copyErrors" value="true"/>
+    <constant name="struts.xwork.chaining.copyMessages" value="true"/>
+
+    <!--suppress Struts2ModelInspection-->
+    <package name="web-default" extends="convention-default">
+        <interceptors>
+            <interceptor-stack name="globalStack">
+                <interceptor-ref name="store">
+                    <param name="operationMode">AUTOMATIC</param>
+                </interceptor-ref>
+                <interceptor-ref name="exception">
+                    <param name="logEnabled">true</param>
+                    <param name="logLevel">error</param>
+                </interceptor-ref>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*,.*\\u0023.*</param>
+                </interceptor-ref>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="multiselect"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*,.*\\u0023.*</param>
+                </interceptor-ref>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+
+        <global-results>
+            <result name="exception">/exception.jsp</result>
+            <result name="error">/WEB-INF/components/message/messages.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+
+    </package>
+
+
+    <package name="authority" extends="struts-default">
+        <!-- 定义一个拦截器 -->
+        <interceptors>
+            <interceptor name="authority" class="org.myself.mobile.web.config.interceptor.LoginInterceptor"/>
+            <!--自定义一个拦截器栈-->
+            <interceptor-stack name="mydefault">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="authority" />
+            </interceptor-stack>
+
+        </interceptors>
+        <default-interceptor-ref name="mydefault" />
+        <!-- 定义全局Result -->
+        <global-results>
+            <!-- 当返回login视图名时，转入/login.jsp页面 -->
+            <result name="login">/WEB-INF/content/login.jsp</result>
+        </global-results>
+
+        <!--<action name="login" class="org.myself.mobile.web.action.LoginAction" method="login">-->
+            <!--<result name="success">login</result>-->
+        <!--</action>-->
+        <!--<action name="loginSubmit" class="org.myself.mobile.web.action.LoginAction"  method="loginSubmit">-->
+            <!--<result name="index" type="redirectAction">index</result>-->
+            <!--<result name="success">/WEB-INF/content/login.jsp</result>-->
+            <!--<result name="input">/WEB-INF/content/login.jsp</result>-->
+        <!--</action>-->
+
+        <!--&lt;!&ndash;不同action之间的跳转&ndash;&gt;-->
+        <!--<action name="loginSubmit" class="org.myself.mobile.web.action.LoginAction" method="loginSubmit">-->
+            <!--<result name="error" type="redirect">login</result>-->
+            <!--<result name="input" type="redirect">login</result>-->
+            <!--<result name="success" type="redirect">index</result>-->
+        <!--</action>-->
+
+        <!--<action name="show" class="org.myself.mobile.web.action.LoginAction" method="show">-->
+            <!--<result name="success">/WEB-INF/content/show.jsp</result>-->
+            <!--&lt;!&ndash; 使用此拦截器 &ndash;&gt;-->
+            <!--<interceptor-ref name="mydefault"/>-->
+        <!--</action>-->
+
+    </package>
+
+
+
+    <!--struts2的action必须放在一个指定的包空间下定义-->
+    <package name="default" extends="struts-default">
+        <default-action-ref name="notFound"/>
+        <action name="notFound">
+            <result>/404.jsp</result>
+        </action>
+        <!--&lt;!&ndash;<action name="register" class="com.derbysoft.mhotel.web.action.RegisterAction">&ndash;&gt;-->
+            <!--&lt;!&ndash;<result name="index" type="redirect"><param name="actionName">indexAction</param></result>&ndash;&gt;-->
+        <!--&lt;!&ndash;</action>&ndash;&gt;-->
+        <!--&lt;!&ndash;<action name="indexAction" class="com.derbysoft.mhotel.web.action.IndexAction" method="index">&ndash;&gt;-->
+            <!--&lt;!&ndash;<result>/404.jsp</result>&ndash;&gt;-->
+        <!--&lt;!&ndash;</action>&ndash;&gt;-->
+    </package>
+</struts>

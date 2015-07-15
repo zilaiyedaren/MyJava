@@ -1,0 +1,30 @@
+一、过滤器
+创建一个Filter 只需两个步骤:
+(1)创建Filter处理类。(2)在web.xml文件中配置Filter。
+创建Filter必须实现javax.servlet.Filter接口，在该接口中定义了三个方法。
+• void init(FilterConfig config): 用于完成Filter 的初始化。
+• void destroy(): 用于Filter 销毁前，完成某些资源的回收。
+• void doFilter(ServletRequest request, ServletResponse response,FilterChain chain): 实现过滤功能，该方法就是对每个请求及响应增加的额外处理。
+过滤器Filter也具有生命周期：init()->doFilter()->destroy()，由部署文件中的filter元素驱动。在servlet2.4中，过滤器同样可以用于请求分派器，但须在web.xml中声明，
+<dispatcher>INCLUDE或FORWARD或REQUEST或ERROR</dispatcher>该元素位于filter-mapping中。
+
+二、Struts2拦截器
+1. Struts2拦截器是在访问某个Action或Action的某个方法，字段之前或之后实施拦截，并且Struts2拦截器是可插拔的，拦截器是AOP的一种实现．
+2. 拦截器栈（Interceptor Stack）。Struts2拦截器栈就是将拦截器按一定的顺序联结成一条链。在访问被拦截的方法或字段时，Struts2拦截器链中的拦截器就会按其之前定义的顺序被调用。
+实现Struts2拦截器原理
+Struts2拦截器的实现原理相对简单，当请求struts2的action时，Struts 2会查找配置文件，并根据其配置实例化相对的拦截器对象，然后串成一个列表，最后一个一个地调用列表中的拦截器。
+定义Struts2拦截器
+Struts2规定用户自定义拦截器必须实com.opensymphony.xwork2.interceptor.Interceptor接口。
+配置Struts2拦截器
+Struts2拦截器需要在struts.xml中声明，如下struts.xml配置文件。
+
+
+三、监听器概述
+  1.Listener是Servlet的监听器
+  2.可以监听客户端的请求、服务端的操作等。
+  3.通过监听器，可以自动激发一些操作，如监听在线用户数量,当增加一个HttpSession时，给在线人数加1。
+  4.编写监听器需要实现相应的接口。
+  5.编写完成后在web.xml文件中配置一下,就可以起作用了。
+  6.可以在不修改现有系统基础上,增加web应用程序生命周期事件的跟踪。
+
+

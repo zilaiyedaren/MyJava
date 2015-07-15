@@ -1,0 +1,49 @@
+Servlet 和JSP跳转方法
+Servlet：
+当然，在servlet中，一般跳转都发生在doGet, doPost等方法里面。
+1)  redirect 方式
+response.sendRedirect("/a.jsp");
+页面的路径是相对路径。sendRedirect可以将页面跳转到任何页面，不一定局限于本web应用中，如：
+response.sendRedirect("http://www.ycul.com");
+
+跳转后浏览器地址栏变化。
+这种方式要传值出去的话，只能在url中带parameter或者放在session中，无法使用request.setAttribute来传递。
+
+2) forward方式
+RequestDispatcher dispatcher = request.getRequestDispatcher("/a.jsp");
+dispatcher .forward(request, response);
+页面的路径是相对路径。forward方式只能跳转到本web应用中的页面上。
+
+跳转后浏览器地址栏不会变化。
+使用这种方式跳转，传值可以使用三种方法：url中带parameter，session，request.setAttribute
+
+
+
+
+JSP：
+1) response.sendRedirect();
+和servlet的response.sendRedirect()方式一样。
+
+此语句前不允许有out.flush()，如果有，会有异常：
+java.lang.IllegalStateException: Can't sendRedirect() after data has committed to the client.
+at com.caucho.server.connection.AbstractHttpResponse.sendRedirect(AbstractHttpResponse.java:558)
+...
+跳转后浏览器地址栏变化
+如果要跳到不同主机下，跳转后，此语句后面的语句会继续执行，如同新开了线程，但是对response的操作已经无意义了；
+如果要跳到相同主机下，此语句后面的语句执行完成后才会跳转；
+
+
+2) response.setHeader("Location","");
+此语句前不允许有out.flush()，如果有，页面不会跳转。
+跳转后浏览器地址栏变化
+此语句后面的语句执行完成后才会跳转
+
+3) <jsp:forward page="" />
+此语句前不允许有out.flush()，如果有，会有异常：
+java.lang.IllegalStateException: forward() not allowed after buffer has committed.
+at com.caucho.server.webapp.RequestDispatcherImpl.forward(RequestDispatcherImpl.java:134)
+at com.caucho.server.webapp.RequestDispatcherImpl.forward(RequestDispatcherImpl.java:101)
+at com.caucho.jsp.PageContextImpl.forward(PageContextImpl.java:836)
+...
+跳转后浏览器地址栏不变，但是只能跳到当前主机下
+此语句后面的语句执行完成后才会跳转

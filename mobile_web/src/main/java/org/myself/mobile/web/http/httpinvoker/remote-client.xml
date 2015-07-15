@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--<beans>-->
+    <!-- 通过Spring HttpInvoker机制代理远程访问服务 -->
+    <!--<bean id="remoteService"-->
+          <!--class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">-->
+        <!--<property name="serviceUrl" value="${url}" />-->
+        <!--<property name="serviceInterface" value="org.myself.mobile.web.action.httpinvoker.IService" />-->
+    <!--</bean>-->
+
+    <!--<bean id="globalPropertyConfigurer"-->
+          <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--&lt;!&ndash;<value>test/client.properties</value>&ndash;&gt;-->
+                <!--<value>http://localhost:8080/mobile_web/remote/remote.convert.service</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+        <!--</beans>-->
+    <beans>
+        <bean id="remoteService"
+              class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+            <property name="serviceUrl">
+                <value>http://localhost:8022/mobile_web/remote/remote.convert.service</value>
+            </property>
+            <property name="serviceInterface">
+                <value>org.myself.mobile.web.http.httpinvoker.IService</value>
+            </property>
+        </bean>
+    </beans>

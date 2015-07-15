@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<decorators defaultdir="/WEB-INF/decorators">
+    <excludes>
+        <pattern>/index**</pattern>
+        <pattern>/wechat/wechat_config**</pattern>
+    </excludes>
+    <decorator name="layout" page="layout.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>

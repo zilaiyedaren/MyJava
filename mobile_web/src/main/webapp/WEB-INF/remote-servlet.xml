@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <!-- 通过Spring HttpInvoker机制暴露远程访问服务 -->
+    <bean id="httpInvokerService" class="org.myself.mobile.web.http.httpinvoker.ServiceImpl" />
+
+    <bean name="/remoteService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+        <property name="service" ref="httpInvokerService" />
+        <property name="serviceInterface" value="org.myself.mobile.web.http.httpinvoker.IService" />
+    </bean>
+
+    <!-- url映射 -->
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="remote.convert.service">/remoteService</prop>
+                <!--对应applicationContext.getBean("remoteService");-->
+            </props>
+        </property>
+    </bean>
+    <!-- 此处将url映射为 remote.convert.service -->
+    <!--http://localhost:8022/mobile_web/remote/remote.convert.service-->
+</beans>

@@ -1,0 +1,111 @@
+Hessian例子
+1.      web项目名: HessianWeb ,需要的jar包：hessian.jar
+2.      服务端程序列表：
+包名：
+接口：Ihessian.java
+接口实现类: HessianImpl.java
+配置文件：web.xml
+3.      客户端程序列表
+包名:
+客户端程序：HessianTest.java
+4.      源码
+1)      Ihessian.java
+
+    package com.hessian.lsh;
+
+public interface IHessian {
+
+    public String say(String msg);
+
+}
+
+2)      HessianImpl.java
+
+    package com.hessian.lsh;
+
+import com.caucho.hessian.server.HessianServlet;
+
+public class HessianImpl extends HessianServlet implements IHessian {
+
+private static final long serialVersionUID = 7619464791326509626L;
+
+    public String say(String msg) {
+
+   return "Hello " + msg;
+
+    }
+
+}
+
+3) web.xml配置
+    <servlet>
+
+       <servlet-name>ihessian</servlet-name>
+
+       <servlet-class>
+
+           com.hessian.lsh.HessianImpl
+
+       </servlet-class>
+
+    </servlet>
+
+    <servlet-mapping>
+
+       <servlet-name>ihessian</servlet-name>
+
+       <url-pattern>/hessian/ihessian</url-pattern>
+
+    </servlet-mapping>
+
+</web-app>
+
+4)   HessianTest.java
+
+import java.net.MalformedURLException;
+
+import com.caucho.hessian.client.HessianProxyFactory;
+
+import com.hessian.lsh.IHessian;;
+
+public class HessianTest {
+
+    public static void main(String[] args) {
+
+    String url = "http://localhost:8080/HessianWeb/hessian/ihessian";
+
+       HessianProxyFactory factory = new HessianProxyFactory();
+
+       IHessian h = null;
+
+       try {
+
+           h = (IHessian) factory.create(IHessian.class, url);
+
+       } catch (MalformedURLException e) {
+
+           System.out.println("occur exception: " + e);
+
+       }
+
+       System.out.println(h.say("MR liu"));
+
+    }
+
+}
+
+客户端说明String url = "http://localhost:8080/HessianWeb/hessian/ihessian";
+Localhost为本机地址，8080为tomcat使用的端口，HessianWeb部署在tomcat中的项目名，/hessian/ihessian为在web.xml中定义的url-pattern
+项目说明
+将HessianWeb部署到服务器，启动成功后，运行HessianTest.java类，在调试窗口将看到以下信息
+
+Hello MR liu
+
+如果没有启动tomcat，而直接运行HessianTest.java类，将出现以下异常：
+java.net.ConnectException: Connection refused: connect
+解决方法，启动tomcat，在重新运行HessianTest.java类
+
+如果服务启动了，运行HessianTest.java类，出现以下异常：
+java.io.IOException: Server returned HTTP response code: 400 for URL:
+说明在HessianTest.java类中
+String url = "http://localhost:8080/HessianWeb/hessian/ihessian";这句有问题，检查端口是否正确，项目名是否正确。

@@ -1,0 +1,64 @@
+Httpinvoker是SpringFramework提供的远程通讯协议，只能用于JAVA程序间的通讯，且服务端和客户端必须使用SpringFramework。
+
+1. 基于Url映射方式，远程系统处理请求的方式同SpringMVC的controller类似，所有的请求通过在web.xml中的 org.springframework.web.servlet.DispatcherServlet统一处理，
+ 根据url映射，去对应的 【servlet名称-servlet.xml】文件中，查询跟请求的url匹配的bean配置
+
+2.基于Servlet方式，由org.springframework.web.context.support.HttpRequestHandlerServlet去拦截url-pattern匹配的请求，如果匹配成功，
+去ApplicationContext中查找name与servlet-name一致的bean，完成远程方法调用。
+
+建立web项目
+导入jar包
+    spring.jar
+    spring-webmvc.jar
+    commons-logging-1.1.2.jar
+
+在web.xml新增如下配置文件
+
+<servlet>
+        <servlet-name>application</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>application</servlet-name>
+        <url-pattern>/*</url-pattern>
+</servlet-mapping>
+
+在WEB-INF下增加application-servlet.xml (注意xml文件的命名，这里的application要和servlet-name名字保持一致)配置如下
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    <bean id="userService" class="org.felix.service.impl.UserServiceImpl" />
+    <!-- 基于Url映射方式,这个配置，就是把userService接口，提供给远程调用 -->
+    <bean id="httpService"  class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+        <property name="service" ref="userService"/>
+        <property name="serviceInterface" value="org.felix.service.UserService"/>
+    </bean>
+    <!-- 远程服务的URL -->
+    <bean
+        class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+         <property name="mappings">
+            <props>
+                  <prop key="/test">httpService</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
+
+在src目录下新建application-servlet.xml配置如下
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    <bean id="httpTestService"
+    class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+        <property name="serviceUrl">
+            <value>http://localhost:8080/felix_0400_SpringHttp_Server/test</value>
+        </property>
+        <property name="serviceInterface">
+            <value>org.felix.service.UserService</value>
+        </property>
+    </bean>
+</beans>

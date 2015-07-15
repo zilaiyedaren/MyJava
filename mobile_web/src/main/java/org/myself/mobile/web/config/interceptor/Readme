@@ -1,0 +1,24 @@
+拦截器的作用主要就是拦截东西，拦截什么呢？当然是'action'了，在执行'action'之前 拦截器会起作用，执行一些预先处理的代码，
+接着区执行action中相关的方法，之后，流程又会回到拦截器里面，接着去执行后续的一些操作。
+
+先看配置，这些配置都是在struts.xml里面的。配置相当简单，不过底层都是很复杂的。
+
+首先先建一个包，放我们的interceptor。
+过滤器和拦截器是非常相似的，public interface Filter类里面有三个方法：
+init（FilterConfig filterConfig），destroy(),doFilter(ServletRequest request,ServletResponse response,FilterChain chain),
+这里面的doFilter（）方法是最重要的，在struts2中就相当于拦截的那个方法。
+
+先写一个拦截器，在struts2中要实现一个接口 这个接口是什么呢？在哪呢？是webwork是我们以前听的最多的关于拦截器的框架，
+struts2用了其中一个核心的东西，这个东西在是什么呢？是xwork恩，有了它才可以拦截，好了我们在哪找呢？
+在com.opensymphony.xwork2.interceptor中找，里面有个Interceptor 这是个接口，里面也有三个方法，
+有init，destroy和intercept三个方法，而在struts2里面的所有的拦截器都继承这个接口！
+Intercept方法返回一个字符串，这个里面最重要的是ActionInvocation 也是个抽象的接口，里面有个invoke() 方法
+          作用：Invokes the next step in processing this ActionInvocation. 即调用下一个拦截器，如果有的话！
+为了，让struts2知道我们写了个拦截器，就在struts。Xml中配置一下。
+
+
+ <action name="show" class="org.myself.mobile.web.action.LoginAction" method="show">
+            <result name="success">/WEB-INF/content/show.jsp</result>
+            <!-- 使用此拦截器 -->
+            <interceptor-ref name="mydefault" />
+</action>

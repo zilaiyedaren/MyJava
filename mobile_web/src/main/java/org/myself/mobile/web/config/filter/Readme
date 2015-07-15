@@ -1,0 +1,227 @@
+一、Filter常见的应用（2）------不缓存页面
+1、禁止浏览器缓存所有动态页面的过滤器：
+（1）有3个HTTP响应头字段都可以禁止浏览器缓存当前页面，它们在Servlet中的实例代码如下：response.setDateHeader（"Expires",-1）；
+
+response.setHeader（"Cache-Control","no-cache"）；
+
+response.setHeader（"Pragma","no-cache"）；
+
+（2）、并不是所有的浏览器都能完全支持上面的三个响应头，因此最好是同时使用上面的三个响应头。
+
+（3）Expires数据头：值为GMT时间值，为-1指浏览器不要缓存页面。
+
+2、Cache-Control响应头有两个常用值：
+
+（1）no-cache指浏览器不要缓存当前页面
+
+（2）max-age:xxx指浏览器缓存页面xxx秒。
+
+实例：
+
+[java]
+
+package com.hbsi.filter;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+
+import javax.servlet.FilterChain;
+
+import javax.servlet.FilterConfig;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.ServletRequest;
+
+import javax.servlet.ServletResponse;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+public class NoCatchFilter implements Filter {
+
+public void destroy（） {
+
+// TODO Auto-generated method stub
+
+}
+
+public void doFilter（ServletRequest request, ServletResponse response,
+
+FilterChain chain） throws IOException, ServletException {
+
+HttpServletRequest req=（HttpServletRequest） request;
+
+HttpServletResponse resp=（HttpServletResponse） response;
+
+resp.setDateHeader（"expires",-1）；
+
+resp.setHeader（"Cache-Control","no-cache"）；
+
+resp.setHeader（"Pragma","no-cache"）；
+
+chain.doFilter（req, resp）；
+
+}
+
+public void init（FilterConfig filterConfig） throws ServletException {
+
+// TODO Auto-generated method stub
+
+}
+
+}
+
+二、Filter常见的应用（3）------控制浏览器缓存页面中的静态资源的过滤器
+
+1、场景：有些动态页面中引用了一些图片或css文件以修饰页面效果，这些图片和css文件经常是不变化的，所以为减轻服务器的压力，可以使用filter控制浏览器缓存这些文件，以提升服务器的性能。
+
+实例：
+
+[java]
+
+package com.hbsi.filter;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+
+import javax.servlet.FilterChain;
+
+import javax.servlet.FilterConfig;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.ServletRequest;
+
+import javax.servlet.ServletResponse;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+public class ExpiresFilter implements Filter {
+
+private FilterConfig config;
+
+public void destroy（） {
+
+// TODO Auto-generated method stub
+
+}
+
+public void doFilter（ServletRequest request, ServletResponse response,
+
+FilterChain chain） throws IOException, ServletException {
+
+HttpServletRequest req=（HttpServletRequest） request;
+
+HttpServletResponse resp=（HttpServletResponse） response;
+
+String uri=req.getRequestURI（）；
+
+if（uri.endsWith（".css"））{
+
+long time=Integer.parseInt（config.getInitParameter（"css"））*1000;
+
+resp.setDateHeader（"expries", System.currentTimeMillis（）+time）；
+
+}else if（uri.endsWith（".jpg"））{
+
+long time=Integer.parseInt（config.getInitParameter（"jpg"））*1000;
+
+resp.setDateHeader（"expries",System.currentTimeMillis（）+time）；
+
+}else if（uri.endsWith（".js"））{
+
+long time=Integer.parseInt（config.getInitParameter（"js"））*1000;
+
+resp.setDateHeader（"expries",System.currentTimeMillis（）+time）；
+
+}
+
+chain.doFilter（req, resp）；
+
+}
+
+public void init（FilterConfig filterConfig） throws ServletException {
+
+this.config=filterConfig;
+
+}
+
+}
+
+Web.xml中的过滤器配置：
+
+[html]
+
+<filter>
+
+<filter-name>ExpiresFilter</filter-name>
+
+<filter-class>com.hbsi.filter.ExpiresFilter</filter-class>
+
+<init-param>
+
+<param-name>css</param-name>
+
+<param-value>120</param-value>
+
+</init-param>
+
+<init-param>
+
+<param-name>jpg</param-name>
+
+<param-value>120</param-value>
+
+</init-param>
+
+<init-param>
+
+<param-name>js</param-name>
+
+<param-value>120</param-value>
+
+</init-param>
+
+</filter>
+
+<filter-mapping>
+
+<filter-name>ExpiresFilter</filter-name>
+
+<url-pattern>*.css</url-pattern>
+
+</filter-mapping>
+
+<filter-mapping>
+
+<filter-name>ExpiresFilter</filter-name>
+
+<url-pattern>*.jpg</url-pattern>
+
+</filter-mapping>
+
+<filter-mapping>
+
+<filter-name>ExpiresFilter</filter-name>
+
+<url-pattern>*.js</url-pattern>
+
+</filter-mapping>
+
+三、Filter常见的应用（4）------使用Filter实现URL级别的权限认证
+
+情景：在实际开发中我们经常把一些执行敏感操作的servlet映射到一些特殊目录中，并用filter把这些特殊目录保护起来，限制只能拥有相应访问权限的用户才能访问这些目录下的资源。从而在我们系统中实现一种URL级别的权限功能。
+
+要求：为使Filter具有通用性，Filter保护的资源和相应的访问权限通过filter参数的形式予以配置。
+
+四、Filter常见的应用（5）------实现自动登录
+
+在用户登陆成功后，发送一个名称为user的cookie给客户端，cookie的值为用户名和md5加密后的密码。
+
+编写一个AutoLoginFilter,这个filter检查用户是否带有名称为user的cookie来，如果有，则调用dao查询cookie的用户名和密码是否和数据库匹配，匹配则向session中存入user对象（即用户登陆标记），以实现程序完成自动登陆。

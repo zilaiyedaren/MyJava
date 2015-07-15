@@ -1,0 +1,99 @@
+有关Struts2中action间的跳转可分为两部分，一部分为同一个包中action间的跳转，还有一个就是在不同包中action间的跳转。
+不管是不是在同一个包中，首先要明确的是要实现跳转，必须要将result中type属性设为chain或redirectAction。
+
+一、同一个包中的跳转
+
+在Action的results里面的type类型配置为“chain”,跳转的Action的URL直接写要跳转到的Action名称即可。
+
+如下面的package，从浏览器访问r1.action之后跳转到r2.action，最后跳转到1.jsp页面显示给用户！
+
+Java代码
+<package name="report" extends="struts-default" namespace="/">
+    <action name="r1" class="R1">
+          <result name="success" type="chain">r2</result>
+    </action>
+
+    <action name="r2" class="R2">
+          <result name="success" type="dispatcher">/1.jsp</result>
+    </action>
+</package>
+
+
+二、不同包中的跳转
+
+需要使用param标签，其中param的name属性不需要修改，只需修改标签对应的值即可，如下，只需修改ss及/pp就行。
+
+从浏览器访问r1.action之后跳转到package为paramsRedirect中的r2.action，最后跳转到1.jsp页面显示给用户！
+
+
+Java代码
+<package name="resultType" namespace="/r" extends="struts-default">
+     <action name="r1">     www.2cto.com
+         <result type="chain">
+              <param name="actionName">r2</param>
+              <param name="namespace">/pp</param>
+              <param name="method">method123</param>
+         </result>
+     </action>
+</package>
+
+<package name="paramsRedirect" namespace="/pp" extends="struts-default">
+     <action name="r2">
+        <result>/1.jsp</result>
+     </action>
+------------------------------------------------------------------------------------------------------------------------
+
+
+（1）type="dispatcher" 为默认，用于jsp页面跳转
+<result name="success">/index.jsp</result>
+完整的写法为：
+<result name="success" type="dispatcher">
+    <param name="location">/index.jsp</param>
+</result>
+
+
+
+（2）type="redirect" 重定向到jsp、action、外部网址
+
+<result name="success" type="redirect">/index.jsp</result>
+<result name="success" type="redirect">/login.do</result>
+<result name="success" type="redirect">http://www.baidu.com</result>
+
+
+重定向时带参数处理方法：
+
+1.type="redirect"：
+<result name="success" type="redirect">/login.do?userId=${userId }</result>
+2.type="redirect-action"：
+见（3）
+
+
+(3)type="redirect-action" 重定向到另外一个action
+
+<result name="success" type="redirect-action">
+    <param name="actionName">login.do</param> 重定向action名
+    <param name="userId">userId</param>带的参数
+
+转自：http://sky-chi.iteye.com/blog/1487134
+
+</result>
+
+
+
+（4）type="chain" 用于action跳转。
+
+<action name="action1" class="org.Action1">
+    <result name="success" type="chain">action2.do</result>
+</action>
+<action name="action2" class="org.Action2">
+    <result name="success">login.jsp</result>
+</action>
+
+
+（5）type="plaintextj" 跳转显示源代码
+
+<result name="err" type="plaintext">
+    <param name="location">具体的位置</param>
+    <param name="charSet">字符规范(如GBK)</param>
+</result>
+------------------------------------------------------------------------------------------------------------------------

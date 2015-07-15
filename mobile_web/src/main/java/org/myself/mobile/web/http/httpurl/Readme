@@ -1,0 +1,20 @@
+HttpURLConnection发起这两种请求
+最常用的Http请求无非是get和post，get请求可以获取静态页面，也可以把参数放在URL字串后面，传递给servlet。post与get的不同之处在于post的参数不是放在URL字串里面，而是放在http请求的正文内。
+在Java中可以使用HttpURLConnection发起这两种请求，了解此类，对于了解soap，和编写servlet的自动测试代码都有很大的帮助.
+
+readContentFromGet() 函数产生了一个get请求，传给servlet一个username参数。
+readContentFromPost() 函数产生了一个post请求，传给servlet一个firstname参数。
+
+HttpURLConnection.connect函数，实际上只是建立了一个与服务器的 tcp连接，并没有实际发送http请求。无论是post还是get，http请求实际上直到 HttpURLConnection .getInputStream()这个函数里面才正式发送出去。
+
+在 readContentFromPost() 中，顺序是重中之重，对connection对象的一切配置（那一堆set函数）都必须要在connect()函数执行之前完成。
+而对 outputStream的写操作，又必须要在inputStream的读操作之前。这些顺序实际上是由http请求的格式决定的。
+
+http请求实际上由两部分组成，一个是 http头(head)，所有关于此次http请求的配置都在http头里面定义，
+一个是正文(content)，在connect()函数里面，会根据 HttpURLConnection对象的配置值生成http头，因此在调用connect函数之前，就必须把所有的配置准备好。
+
+紧接着http头的是http请求的正文，正文的内容通过outputStream写入，实际上outputStream不是一个网络流，充其量是个字符串流，往里面写入的东西不会立即发送到网络，而是在流关闭后，根据输入的内容生成http正文。
+
+至此，http请求的东西已经准备就绪。在 getInputStream()函数调用的时候，就会把准备好的http请求正式发送到服务器了，然后返回一个输入流，用于读取服务器对于此次http 请求的返回信息。
+由于http请求在getInputStream的时候已经发送出去了（包括http头和正文），因此在 getInputStream()函数之后对connection对象进行设置（对http头的信息进行修改）或者写入outputStream（对正文进行修改）都是没有意义的了，
+甚至执行这些操作可能会导致异常的发生.
