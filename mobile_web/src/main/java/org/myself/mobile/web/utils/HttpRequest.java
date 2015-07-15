@@ -56,20 +56,4 @@ public class HttpRequest {
         return jsonObject;
     }
 
-
-
-    public static JSONObject beanToJson(Object o){ //bean转为json
-        return null;
-    }
-
-    public static Object jsonToBean(JSONObject jsonObject){  //把JSON字符串转换为JAVA 对象
-//        JSONObject jsonobject = JSONObject.fromObject(str);
-
-        return null;
-    }
-    public static List<Object> jsonListToBean(JSONArray jsonArray,Object o){   //jsonList转为 beanList
-        List<Object> list = null;
-
-        return null;
-    }
 }
