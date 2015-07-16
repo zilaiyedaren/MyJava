@@ -27,11 +27,13 @@ import com.myself.util.dwz.springdata.PageUtils;
 public class UserServiceImpl extends BaseServiceImpl<User, Long> implements UserService {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
+    @Autowired
 	private UserDao userDao;
 
+    @Autowired
 	private ShiroDbRealm shiroRealm;
-	
-	/**  
+
+    /**
 	 * 构造函数
 	 * @param userDao
 	 */ 

@@ -3,6 +3,8 @@ package com.myself.security.shiro;
 import java.io.Serializable;
 import java.util.List;
 
+import com.myself.security.service.impl.UserRoleServiceImpl;
+import com.myself.security.service.impl.UserServiceImpl;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -17,7 +19,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
 
@@ -33,7 +34,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
 
 	protected UserService userService;
-
 
 	protected UserRoleService userRoleService;
 	
@@ -140,19 +140,15 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		}
 	}
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
-	/**
-	 * 设置 userRoleService 的值
-	 * @param userRoleService
-	 */
-	public void setUserRoleService(UserRoleService userRoleService) {
-		this.userRoleService = userRoleService;
-	}
+    public void setUserRoleService(UserRoleService userRoleService) {
+        this.userRoleService = userRoleService;
+    }
 
-	/**
+    /**
 	 * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
 	 */
 	public static class ShiroUser implements Serializable {

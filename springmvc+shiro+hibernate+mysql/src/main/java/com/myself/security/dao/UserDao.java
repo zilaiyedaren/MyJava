@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.myself.security.entity.main.User;
+import org.springframework.stereotype.Repository;
 
 public interface UserDao extends JpaRepository<User, Long> {
 	// 根据登录名查找用户

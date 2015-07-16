@@ -29,7 +29,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements Role
 
     /**
 	 * 构造函数
-	 * @param jpaRepository  
+	 * @param roleDao
 	 */ 
 	@Autowired
 	public RoleServiceImpl(RoleDao roleDao) {
@@ -39,7 +39,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements Role
 
 	/**   
 	 * @param role  
-	 * @see com.myself.security.service.RoleService#update(com.myself.security.entity.main.Role)
+	 * @see com.myself.security.service.RoleService# update(com.myself.security.entity.main.Role)
 	 */
 	@Transactional
 	public void update(Role role) {
@@ -49,7 +49,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements Role
 
 	/**   
 	 * @param id  
-	 * @see com.myself.security.service.RoleService#delete(java.lang.Long)
+	 * @see com.myself.security.service.RoleService# delete(java.lang.Long)
 	 */
 	@Transactional
 	public void delete(Long id) {
