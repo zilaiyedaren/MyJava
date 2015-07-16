@@ -1,25 +1,8 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.security.authenticate.IncorrectCaptchaException.java
- * Class:			IncorrectCaptchaException
- * Date:			2012-8-7
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
 
 package com.myself.security.shiro;
 
 import org.apache.shiro.authc.AuthenticationException;
 
-/**
- * 
- * @author <a href="mailto:myself@gmail.com">myself</a> Version 1.1.0
- * @since 2012-8-7 上午9:22:21
- */
 
 public class IncorrectCaptchaException extends AuthenticationException {
 	/** 描述  */

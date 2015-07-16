@@ -1,10 +1,4 @@
-/**
- * <pre>
- * Filename:		com.ygsoft.security.dao.OrganizationDao.java
- * Class:			OrganizationDao
- * </pre>
- **/
- 
+
 package com.myself.security.dao;
 
 import java.util.List;

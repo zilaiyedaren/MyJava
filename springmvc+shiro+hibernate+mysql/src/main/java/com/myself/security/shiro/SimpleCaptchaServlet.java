@@ -65,8 +65,7 @@ public class SimpleCaptchaServlet extends HttpServlet {
 		}
 		
 		Color c = new Color(0.6662f, 0.4569f, 0.3232f);
-		GradientPaint gp = new GradientPaint(30, 30, c, 15, 25, Color.white,
-				true);
+		GradientPaint gp = new GradientPaint(30, 30, c, 15, 25, Color.white,true);
 		graphics2D.setPaint(gp);
 		Font font = new Font("Verdana", Font.CENTER_BASELINE, 26);
 		graphics2D.setFont(font);
@@ -79,7 +78,5 @@ public class SimpleCaptchaServlet extends HttpServlet {
 		OutputStream outputStream = response.getOutputStream();
 		ImageIO.write(image, "jpeg", outputStream);
 		outputStream.close();
-
 	}
-
 }

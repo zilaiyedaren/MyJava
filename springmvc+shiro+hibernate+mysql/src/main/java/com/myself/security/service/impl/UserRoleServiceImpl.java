@@ -1,4 +1,3 @@
-
 package com.myself.security.service.impl;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class UserRoleServiceImpl extends BaseServiceImpl<UserRole, Long> impleme
 	
 	/**  
 	 * 构造函数
-	 * @param jpaRepository  
+	 * @param userRoleDao
 	 */ 
 	@Autowired
 	public UserRoleServiceImpl(UserRoleDao userRoleDao) {

@@ -18,12 +18,50 @@
     </list>
     <ignored path="hello_spring.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437032036648" ignored="false" />
+    <file path="/Dummy.txt" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437032162147" ignored="false" />
     <file path="D:/workspace/mobile-huanhua/src/main/java/com/derbysoft/mhotel/web/utils/Constants.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1436953560537" ignored="false" />
     <file path="/Constants.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1436953560537" ignored="false" />
     <file path="$PROJECT_DIR$/../mobile_web/src/main/java/org/myself/mobile/web/crawler/CrawlerImg.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1436955570599" ignored="false" />
     <file path="/CrawlerImg.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1436965032085" ignored="false" />
     <file path="/Link.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1436961755537" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/dao/ModuleDao.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437032424693" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/dao/OrganizationDao.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437032424693" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/dao/RoleDao.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437032424693" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/dao/UserRoleDao.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437032424693" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/entity/IdEntity.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437032617884" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/util/dwz/springdata/PageUtils.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034180598" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/shiro/BaseFormAuthenticationFilter.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034259487" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/shiro/CaptchaFormAuthenticationFilter.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034256233" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/shiro/CaptchaUsernamePasswordToken.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034264402" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/shiro/IncorrectCaptchaException.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034272347" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/shiro/ShiroDbRealm.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034278633" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/SecurityConstants.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034285865" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/BaseService.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034297547" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/CacheService.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034313622" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/ModuleService.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034385969" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/OrganizationService.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034385969" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/RoleService.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034385969" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/UserRoleService.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034371040" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/UserService.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034380859" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/impl/BaseServiceImpl.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034427934" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/impl/CacheServiceImpl.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034432311" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/impl/ModuleServiceImpl.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034492293" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/impl/OrganizationServiceImpl.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034478399" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/impl/RoleServiceImpl.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034484502" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/impl/UserRoleServiceImpl.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034502074" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/service/impl/UserServiceImpl.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034524910" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/exception/ExistedException.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034547387" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/exception/ServiceException.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034555273" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/controller/CacheManageController.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034568214" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/controller/IndexController.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034572894" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/controller/LoginController.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034611241" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/controller/ModuleController.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034607621" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/controller/OrganizationController.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034604538" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/controller/RoleController.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034593628" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/controller/UserController.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034600026" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/util/dwz/AjaxObject.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034623023" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/util/dwz/Page.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437034629491" ignored="false" />
+    <file path="$PROJECT_DIR$/../springmvc+shiro+hibernate+mysql/src/main/java/com/myself/security/shiro/SimpleCaptchaServlet.java" changelist="4de5fab4-1a90-40f9-b3b6-0ce117405a97" time="1437035188097" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -643,7 +681,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3147942" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />

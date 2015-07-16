@@ -15,7 +15,6 @@ import com.myself.util.dwz.Page;
 
 /**
  * 解决dwz page 的遗留问题，使程序更易移植和替换
- *
  */
 
 public class PageUtils {
@@ -42,7 +41,6 @@ public class PageUtils {
 
 	/**
 	 * 将springDataPage的属性注入page 描述
-	 * 
 	 * @param page
 	 * @param springDataPage
 	 */

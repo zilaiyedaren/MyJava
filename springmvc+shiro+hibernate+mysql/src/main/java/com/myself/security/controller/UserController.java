@@ -1,16 +1,4 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.security.controller.UserController.java
- * Class:			UserController
- * Date:			2012-8-7
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
- 
+
 package com.myself.security.controller;
 
 import java.util.Date;
@@ -41,12 +29,6 @@ import com.myself.security.service.UserService;
 import com.myself.util.dwz.AjaxObject;
 import com.myself.util.dwz.Page;
 
-/** 
- * 	
- * @author 	<a href="mailto:myself@gmail.com">myself</a>
- * Version  1.1.0
- * @since   2012-8-7 下午3:12:23 
- */
 @Controller
 @RequestMapping("/management/security/user")
 public class UserController {

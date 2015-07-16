@@ -1,4 +1,3 @@
-
 package com.myself.security.service.impl;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class ModuleServiceImpl extends BaseServiceImpl<Module, Long>implements M
 
 	/**
 	 * 构造函数
-	 * @param jpaRepository
+	 * @param moduleDao
 	 */
 	@Autowired
 	public ModuleServiceImpl(ModuleDao moduleDao) {
@@ -34,7 +33,7 @@ public class ModuleServiceImpl extends BaseServiceImpl<Module, Long>implements M
 	/**
 	 * @param id
 	 * @throws ServiceException
-	 * @see com.myself.security.service.ModuleService#delete(int)
+	 * @see com.myself.security.service.ModuleService# delete(int)
 	 */
 	@Transactional
 	public void delete(Long id) throws ServiceException {

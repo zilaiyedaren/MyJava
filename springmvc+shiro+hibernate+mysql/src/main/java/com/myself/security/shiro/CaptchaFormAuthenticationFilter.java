@@ -1,16 +1,3 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.security.authenticate.CaptchaFormAuthenticationFilter.java
- * Class:			CaptchaFormAuthenticationFilter
- * Date:			2012-8-7
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
-
 package com.myself.security.shiro;
 
 import javax.servlet.ServletRequest;
@@ -19,12 +6,6 @@ import javax.servlet.ServletResponse;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.util.WebUtils;
 
-/**
- * 
- * @author <a href="mailto:myself@gmail.com">myself</a>
- * Version 1.1.0
- * @since 2012-8-7 上午9:20:26
- */
 
 public class CaptchaFormAuthenticationFilter extends BaseFormAuthenticationFilter {
 

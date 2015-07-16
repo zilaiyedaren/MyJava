@@ -1,10 +1,3 @@
-/**
- * <pre>
- * Filename:		com.ygsoft.security.service.impl.BaseServiceImpl.java
- * Class:			BaseServiceImpl
- * </pre>
- **/
- 
 package com.myself.security.service.impl;
 
 import java.io.Serializable;

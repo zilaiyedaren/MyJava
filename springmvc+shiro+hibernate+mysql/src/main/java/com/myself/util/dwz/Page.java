@@ -1,25 +1,4 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.util.dwz.Pager.java
- * Class:			Pager
- * Date:			2012-6-11
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
- 
 package com.myself.util.dwz;
-
-
-/** 
- * 	
- * @author 	<a href="mailto:myself@gmail.com">myself</a>
- * Version  1.1.0
- * @since   2012-6-11 上午10:28:30 
- */
 
 public class Page {
 	public final static String ORDER_DIRECTION_ASC = "ASC"; 

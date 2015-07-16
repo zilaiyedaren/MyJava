@@ -1,15 +1,4 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.security.shiro.BaseFormAuthenticationFilter.java
- * Class:			BaseFormAuthenticationFilter
- * Date:			2012-10-29
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
+
  
 package com.myself.security.shiro;
 
@@ -22,12 +11,6 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
-/** 
- * 	
- * @author 	<a href="mailto:myself@gmail.com">myself</a>
- * Version  1.1.0
- * @since   2012-10-29 上午9:37:02 
- */
 
 public class BaseFormAuthenticationFilter extends FormAuthenticationFilter {
 

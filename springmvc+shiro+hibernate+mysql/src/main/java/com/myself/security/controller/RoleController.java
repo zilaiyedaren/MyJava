@@ -1,16 +1,4 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.security.controller.RoleController.java
- * Class:			RoleController
- * Date:			2012-8-7
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
- 
+
 package com.myself.security.controller;
 
 import java.util.Arrays;
@@ -33,12 +21,6 @@ import com.myself.security.service.RoleService;
 import com.myself.util.dwz.AjaxObject;
 import com.myself.util.dwz.Page;
 
-/** 
- * 	
- * @author 	<a href="mailto:myself@gmail.com">myself</a>
- * Version  1.1.0
- * @since   2012-8-7 下午5:44:13 
- */
 @Controller
 @RequestMapping("/management/security/role")
 public class RoleController {

@@ -1,16 +1,4 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.util.dwz.AjaxObject.java
- * Class:			AjaxObject
- * Date:			2012-6-8
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
- 
+
 package com.myself.util.dwz;
 
 /** 

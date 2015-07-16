@@ -1,26 +1,9 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.security.authenticate.CaptchaUsernamePasswordToken.java
- * Class:			CaptchaUsernamePasswordToken
- * Date:			2012-8-7
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
+
 
 package com.myself.security.shiro;
 
 import org.apache.shiro.authc.UsernamePasswordToken;
 
-/**
- * 
- * @author <a href="mailto:myself@gmail.com">myself</a>
- * Version 1.1.0
- * @since 2012-8-7 上午9:21:32
- */
 
 public class CaptchaUsernamePasswordToken extends UsernamePasswordToken {
 	/** 描述 */

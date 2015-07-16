@@ -1,16 +1,3 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.security.service.impl.RoleServiceImpl.java
- * Class:			RoleServiceImpl
- * Date:			2012-8-7
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
- 
 package com.myself.security.service.impl;
 
 import java.util.List;

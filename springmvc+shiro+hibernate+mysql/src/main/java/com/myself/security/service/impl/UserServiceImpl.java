@@ -1,4 +1,3 @@
-
 package com.myself.security.service.impl;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 	
 	/**  
 	 * 构造函数
-	 * @param jpaRepository  
+	 * @param userDao
 	 */ 
 	@Autowired
 	public UserServiceImpl(UserDao userDao) {
@@ -46,7 +45,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 	 * 
 	 * @param user
 	 * @throws ExistedException  
-	 * @see com.myself.security.service.UserService#save(com.myself.security.entity.main.User)
+	 * @see com.myself.security.service.UserService# save(com.myself.security.entity.main.User)
 	 */
 	@Transactional
 	public void save(User user) throws ExistedException {		
@@ -71,7 +70,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 
 	/**   
 	 * @param user  
-	 * @see com.myself.security.service.UserService#update(com.myself.security.entity.main.User)
+	 * @see com.myself.security.service.UserService# update(com.myself.security.entity.main.User)
 	 */
 	@Transactional
 	public void update(User user) {
@@ -93,7 +92,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 
 	/**   
 	 * @param id  
-	 * @see com.myself.security.service.UserService#delete(java.lang.Long)
+	 * @see com.myself.security.service.UserService# delete(java.lang.Long)
 	 */
 	@Transactional
 	public void delete(Long id) throws ServiceException {

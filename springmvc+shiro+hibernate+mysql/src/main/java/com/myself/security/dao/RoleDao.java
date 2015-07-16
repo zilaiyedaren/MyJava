@@ -1,10 +1,4 @@
-/**
- * <pre>
- * Filename:		com.ygsoft.security.dao.RoleDao.java
- * Class:			RoleDao
- * </pre>
- **/
- 
+
 package com.myself.security.dao;
 
 import org.springframework.data.domain.Page;

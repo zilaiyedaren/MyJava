@@ -1,16 +1,3 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.security.shiro.ShiroDbRealm.java
- * Class:			ShiroDbRealm
- * Date:			2012-8-2
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
-
 package com.myself.security.shiro;
 
 import java.io.Serializable;

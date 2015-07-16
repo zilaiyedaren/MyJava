@@ -1,16 +1,3 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.security.controller.LoginController.java
- * Class:			LoginController
- * Date:			2012-8-2
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
-
 package com.myself.security.controller;
 
 import java.util.Map;
@@ -30,11 +17,7 @@ import com.myself.security.SecurityConstants;
 import com.myself.security.shiro.ShiroDbRealm;
 import com.myself.util.dwz.AjaxObject;
 
-/**
- * 
- * @author <a href="mailto:myself@gmail.com">myself</a> Version 1.1.0
- * @since 2012-8-2 下午5:29:01
- */
+
 @Controller
 @RequestMapping("/login")
 public class LoginController {

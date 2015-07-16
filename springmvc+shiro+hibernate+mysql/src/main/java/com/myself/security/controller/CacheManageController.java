@@ -1,16 +1,3 @@
-/**
- * <pre>
- * Copyright:		Copyright(C) 2011-2012, myself.com
- * Filename:		com.ygsoft.security.controller.CacheManageController.java
- * Class:			CacheManageController
- * Date:			2012-9-14
- * Author:			<a href="mailto:myself@gmail.com">myself</a>
- * Version          1.1.0
- * Description:		
- *
- * </pre>
- **/
- 
 package com.myself.security.controller;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;

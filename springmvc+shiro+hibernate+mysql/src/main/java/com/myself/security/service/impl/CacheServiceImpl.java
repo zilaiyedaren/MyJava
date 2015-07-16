@@ -1,5 +1,3 @@
-
- 
 package com.myself.security.service.impl;
 
 import javax.persistence.EntityManager;

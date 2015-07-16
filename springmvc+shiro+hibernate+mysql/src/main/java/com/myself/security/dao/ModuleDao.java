@@ -1,10 +1,4 @@
-/**
- * <pre>
- * Filename:		com.ygsoft.security.dao.ModuleDao.java
- * Class:			ModuleDao
- * </pre>
- **/
- 
+
 package com.myself.security.dao;
 
 import java.util.List;

@@ -24,7 +24,7 @@ public class OrganizationServiceImpl extends BaseServiceImpl<Organization, Long>
 	
 	/**  
 	 * 构造函数
-	 * @param jpaRepository  
+	 * @param organizationDao
 	 */ 
 	@Autowired
 	public OrganizationServiceImpl(OrganizationDao organizationDao) {
@@ -35,7 +35,7 @@ public class OrganizationServiceImpl extends BaseServiceImpl<Organization, Long>
 	/**   
 	 * @param id
 	 * @throws ServiceException  
-	 * @see com.myself.security.service.OrganizationService#delete(java.lang.Long)
+	 * @see com.myself.security.service.OrganizationService# delete(java.lang.Long)
 	 */
 	@Transactional
 	public void delete(Long id) throws ServiceException {
