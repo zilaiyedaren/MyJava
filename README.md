@@ -1,2 +1,0 @@
-# MyJava
-the learn codes 
