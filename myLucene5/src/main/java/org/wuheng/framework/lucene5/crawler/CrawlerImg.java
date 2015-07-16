@@ -5,6 +5,7 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.*;
 
 import org.apache.lucene.queryparser.classic.QueryParser;
@@ -73,7 +74,7 @@ public class CrawlerImg {
      * @return
      */
     private static CrawlerImg loadConfig(CrawlerImg crawlerImg){
-        crawlerImg.imagePath="D:/images";
+        crawlerImg.imagePath="E:/images";
         new File(crawlerImg.imagePath).mkdir();
         crawlerImg.imageWidth=300;
         crawlerImg.imageHeight=300;
@@ -272,8 +273,9 @@ public class CrawlerImg {
             try {
                 inputStream=url.openStream();
                 BufferedImage bufferedImage= ImageIO.read(inputStream);
-                if(bufferedImage!=null && bufferedImage.getHeight()>imageHeight && bufferedImage.getWidth()>imageWidth){
-                    logger.info("写图片"+imageUrl); Random random=new Random();
+//                if(bufferedImage!=null && bufferedImage.getHeight()>imageHeight && bufferedImage.getWidth()>imageWidth){
+                if(bufferedImage!=null){
+                    logger.info("写图片"+imageUrl);
                     ImageIO.write(bufferedImage,"jpg",new FileOutputStream(imagePath+"/"+imageName+".jpg"));
                 }else{
                     logger.info("图片尺寸太小");
@@ -289,7 +291,8 @@ public class CrawlerImg {
         IndexWriterConfig config=new IndexWriterConfig(analyzer);
         IndexWriter indexWriter=new IndexWriter(directory,config);
         Document document=new Document();
-        Field field=new Field("url",CrawlerImg.md5(url), Field.Store.NO, Field.Index.ANALYZED);
+//        Field field=new Field("url",CrawlerImg.md5(url), Field.Store.NO, Field.Index.ANALYZED); //该构造函数在Lucene5.0中过期
+        Field field=new Field("url",CrawlerImg.md5(url), TextField.TYPE_STORED);
         document.add(field);
         indexWriter.addDocument(document);
         indexWriter.commit();
