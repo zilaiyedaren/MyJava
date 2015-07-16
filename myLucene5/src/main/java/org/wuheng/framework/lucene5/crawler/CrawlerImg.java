@@ -273,9 +273,10 @@ public class CrawlerImg {
             try {
                 inputStream=url.openStream();
                 BufferedImage bufferedImage= ImageIO.read(inputStream);
-//                if(bufferedImage!=null && bufferedImage.getHeight()>imageHeight && bufferedImage.getWidth()>imageWidth){
-                if(bufferedImage!=null){
+                if(bufferedImage!=null && bufferedImage.getHeight()>imageHeight && bufferedImage.getWidth()>imageWidth){
+//                if(bufferedImage!=null){
                     logger.info("写图片"+imageUrl);
+                    imageName=imageName.replaceAll("/|\\\\","-");
                     ImageIO.write(bufferedImage,"jpg",new FileOutputStream(imagePath+"/"+imageName+".jpg"));
                 }else{
                     logger.info("图片尺寸太小");
@@ -305,9 +306,7 @@ public class CrawlerImg {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(plainText.getBytes());
             byte b[] = md.digest();
-
             int i;
-
             StringBuffer buf = new StringBuffer("");
             for (int offset = 0; offset < b.length; offset++) {
                 i = b[offset];
@@ -317,11 +316,9 @@ public class CrawlerImg {
                     buf.append("0");
                 buf.append(Integer.toHexString(i));
             }
-
             return buf.toString().substring(8, 24);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-
         }
         return  null;
     }
@@ -337,4 +334,5 @@ public class CrawlerImg {
     public void setIndexFile(File indexFile) {
         this.indexFile = indexFile;
     }
+
 }
